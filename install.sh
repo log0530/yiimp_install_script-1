@@ -45,7 +45,7 @@
 
     source conf/functions.sh
 
-    hide_output sudo apt -y update
+    sudo apt -y update
     apt_install lsb-release figlet update-motd landscape-common update-notifier-common lolcat needrestart
 
     clear
@@ -68,8 +68,8 @@
 
     sudo sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
     
-    hide_output sudo apt -y upgrade
-    hide_output sudo apt -y autoremove
+    sudo apt -y upgrade
+    sudo apt -y autoremove
     apt_install software-properties-common
     apt_install dialog python3 python3-pip acl nano apt-transport-https
     echo -e "$GREEN Done...$COL_RESET"
