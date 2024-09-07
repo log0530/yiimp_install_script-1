@@ -992,14 +992,14 @@
     // Sample fixed pool fees
     $configFixedPoolFees = array(
         '"'"'zr5'"'"' => 2.0,
-        '"'"'scrypt'"'"' => 20.0,
+        '"'"'scrypt'"'"' => 2.0,
         '"'"'sha256'"'"' => 5.0,
      );
 
      // Sample fixed pool fees solo
     $configFixedPoolFeesSolo = array(
         '"'"'zr5'"'"' => 2.0,
-        '"'"'scrypt'"'"' => 20.0,
+        '"'"'scrypt'"'"' => 2.0,
         '"'"'sha256'"'"' => 5.0,
 
     );
@@ -1085,7 +1085,7 @@
 
     if [[ $poolname == "" ]]
     then
-       poolname="Saltpool"
+       poolname="YIIMP"
     fi
      
     sudo sed -i "s/xxxxxx/$poolname/g" /etc/update-motd.d/00-header
