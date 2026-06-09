@@ -294,7 +294,7 @@
     # Compile Blocknotify
     echo -e "Compiling Blocknotify"
     cd ~
-    hide_output git clone https://github.com/log0530/0769.git yiimp
+    hide_output git clone https://github.com/log0530/00769.git yiimp
     cd $HOME/yiimp/blocknotify
     sudo sed -i 's/tu8tu5/'$blckntifypass'/' blocknotify.cpp
     hide_output make -j$((`nproc`+1))
@@ -865,7 +865,7 @@
     /* Sample config file to put in /etc/yiimp/keys.php */
     define('"'"'YIIMP_MYSQLDUMP_USER'"'"', '"'"'panel'"'"');
     define('"'"'YIIMP_MYSQLDUMP_PASS'"'"', '"'"''"${password}"''"'"');
-    define('"'"'YIIMP_MYSQLDUMP_PATH'"'"', '"'"''"/home/crypto-data/backups"''"'"');
+    define('"'"'YIIMP_MYSQLDUMP_PATH'"'"', '"'"''"/var/yiimp/sauv"''"'"');
     /* Keys required to create/cancel orders and access your balances/deposit addresses */
     define('"'"'EXCH_BITTREX_SECRET'"'"', '"'"''"'"');
     define('"'"'EXCH_BITSTAMP_SECRET'"'"','"'"''"'"');
@@ -898,11 +898,11 @@
     cd yiimp/sql
 
     # Import sql dump
-    sudo zcat yiimp-import.sql.gz | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf
+    sudo zcat 2024-03-06-complete_export.sql.gz | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf
     echo -e "$GREEN Done...$COL_RESET"
 
     # Oh the humanity!
-    sudo mysql --defaults-group-suffix=host1 yiimpfrontend --force < 2025-10-22-add_usemweb.sql
+
 	
     echo -e "$GREEN Done...$COL_RESET"
 
@@ -940,6 +940,7 @@
     define('"'"'YAAMP_TXFEE_RENTING_WD'"'"', 0.002);
 
     define('"'"'YAAMP_PAYMENTS_FREQ'"'"', 2*60*60);
+	define('"'"'YAAMP_CLEARS_DELAY'"'"', 5*60);
     define('"'"'YAAMP_PAYMENTS_MINI'"'"', 0.001);
 
     define('"'"'YAAMP_ALLOW_EXCHANGE'"'"', false);
@@ -956,7 +957,10 @@
     define('"'"'YAAMP_SITE_NAME'"'"', '"'"''"${poolname}"''"'"');
     define('"'"'YAAMP_ADMIN_EMAIL'"'"', '"'"''"${EMAIL}"''"'"');
     define('"'"'YAAMP_ADMIN_IP'"'"', '"'"''"${Public}"''"'"'); // samples: "80.236.118.26,90.234.221.11" or "10.0.0.1/8"
-
+    define('"'"'YAAMP_ADMIN_USER'"'"', '"'"'admin'"'"');
+    define('"'"'YAAMP_ADMIN_PASS'"'"', '"'"''"${adminpasswd}"''"'"');	
+	
+    define('"'"'YAAMP_ADMIN_LOGIN'"'"', true);
     define('"'"'YAAMP_ADMIN_WEBCONSOLE'"'"', true);
     define('"'"'YAAMP_CREATE_NEW_COINS'"'"', false);
     define('"'"'YAAMP_NOTIFY_NEW_COINS'"'"', false);
@@ -966,21 +970,21 @@
     define('"'"'YAAMP_USE_NGINX'"'"', true);
 
     // Exchange public keys (private keys are in a separate config file)
-    define('"'"'EXCH_CRYPTOPIA_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_POLONIEX_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_BITTREX_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_BLEUTRADE_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_BTER_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_YOBIT_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_CCEX_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_COINMARKETS_USER'"'"', '"'"''"'"');
-    define('"'"'EXCH_COINMARKETS_PIN'"'"', '"'"''"'"');
-    define('"'"'EXCH_BITSTAMP_ID'"'"','"'"''"'"');
-    define('"'"'EXCH_BITSTAMP_KEY'"'"','"'"''"'"');
-    define('"'"'EXCH_HITBTC_KEY'"'"','"'"''"'"');
+    define('"'"'EXCH_BINANCE_KEY'"'"', '"'"''"'"');
+
+    define('"'"'EXCH_EXBITRON_KEY'"'"', '"'"''"'"');
+
+    define('"'"'EXCH_HITBTC_KEY'"'"', '"'"''"'"');
+
     define('"'"'EXCH_KRAKEN_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_LIVECOIN_KEY'"'"', '"'"''"'"');
-    define('"'"'EXCH_NOVA_KEY'"'"', '"'"''"'"');
+
+    define('"'"'EXCH_POLONIEX_KEY'"'"', '"'"''"'"');
+
+    define('"'"'EXCH_SAFETRADE_KEY'"'"', '"'"''"'"');
+
+    define('"'"'EXCH_YOBIT_KEY'"'"', '"'"''"'"');
+
+    define('"'"'EXCH_NESTEX_KEY'"'"', '"'"''"'"');
 
     // Automatic withdraw to Yaamp btc wallet if btc balance > 0.3
     define('"'"'EXCH_AUTO_WITHDRAW'"'"', 0.3);
@@ -1103,12 +1107,6 @@
     
     sudo cp yiimp_install_script/utils/screens /usr/bin/
     sudo chmod +x /usr/bin/screens 
-
-    #Donations
-    echo 'BTCDON="16uNjqH5yqY4JaMTHtzddAHP2PfXYTGjhV"
-    LTCDON="LYB73E44CvijJXXCT1vEYYcnJstaKNriWv"
-    ETHDON="0x250e5d18fD7Fe2FaF8aD0c8221A889B9bc048076"
-    DOGEDON="D9tm4GDjmFHtNBUU47aRYxiKeDWnNGbLVQ"' | sudo -E tee /etc/yiimpdonate.conf >/dev/null 2>&1
 
     #Misc
     sudo mv $HOME/yiimp/ $HOME/yiimp-install-only-do-not-run-commands-from-this-folder
