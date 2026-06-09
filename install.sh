@@ -898,7 +898,8 @@
     cd yiimp/sql
 
     # Import sql dump
-    sudo zcat 2024-03-06-complete_export.sql.gz | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf
+	sudo zcat yiimp-import.sql.gz | sudo mysql -u root -p=${rootpasswd} yiimpfrontend
+    ###sudo zcat 2026-06-09-complete_export.sql | sudo mysql --defaults-group-suffix=host1 --defaults-file=/home/${whoami}/.my.cnf
     echo -e "$GREEN Done...$COL_RESET"
 
     # Oh the humanity!
